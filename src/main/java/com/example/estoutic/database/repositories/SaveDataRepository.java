@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SaveDataRepository extends JpaRepository<SaveData, String> {
-
+    SaveData findOptionalById(String id);
 }

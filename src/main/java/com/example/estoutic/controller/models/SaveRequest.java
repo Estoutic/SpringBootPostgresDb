@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class SaveRequest {
 
-    @JsonProperty("save")
-    private String save;
+    @JsonProperty("name")
+    private String name;
 
 }

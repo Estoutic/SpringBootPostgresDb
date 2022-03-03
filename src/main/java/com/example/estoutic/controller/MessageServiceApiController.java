@@ -7,16 +7,6 @@ import org.springframework.web.bind.annotation.*;
 public class MessageServiceApiController {
     private SaveRequest saveRequest;
 
-    @GetMapping("/help")
-    public String sayHello(){
-        return "hello";
-    }
-
-    @GetMapping("/calculate")
-    public String calculate(@RequestParam("first") int first, @RequestParam("second") int second){
-        return String.valueOf(first + second);
-    }
-
     @PostMapping("/save")
     public String save(@RequestBody() SaveRequest saveRequest){
         this.saveRequest = saveRequest;
