@@ -25,6 +25,8 @@ public class SaveDataService {
 //            AdditionalEntity additionalEntity = mapper.map(additional, AdditionalEntity.class);
 //            dataToSave.addAdditional(additionalEntity);
 //        }
+        System.out.println(dataToSave.getName());
+
         dataToSaveRepository.save(dataToSave);
         return dataToSave.getId();
     }
