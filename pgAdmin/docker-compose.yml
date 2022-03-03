@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  postgresql:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: "postgres"
+    ports:
+      - "15432:5432"
+    container_name: postgresql
+    networks:
+      - postgres-network
+    restart: unless-stopped
+
+  postgres-admin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "aqulasoft@gmail.com"
+      PGADMIN_DEFAULT_PASSWORD: "postgres"
+    ports:
+      - "16543:80"
+    container_name: postgres-admin
+    depends_on:
+      - postgresql
+    networks:
+      - postgres-network
+    restart: unless-stopped
+
+networks:
+  postgres-network:
+    driver: bridge
