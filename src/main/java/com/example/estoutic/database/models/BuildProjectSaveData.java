@@ -8,13 +8,16 @@ import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.time.LocalDateTime;
 
 @Data
 @Entity
 @NoArgsConstructor
-public class SaveData {
+public class BuildProjectSaveData {
 
     @Id
     @GeneratedValue(generator = "system-uuid")
@@ -29,19 +32,7 @@ public class SaveData {
 
     @Generated(GenerationTime.INSERT)
     private Integer serial;
-//
-//    @OneToMany(
-//            fetch = FetchType.EAGER,
-//            mappedBy = "dataToSave",
-//            cascade = CascadeType.ALL
-//    )
-//    private List<AdditionalEntity> additionalEntities = new ArrayList<>();
 
-    private String name;
+    private String projectName;
 
-
-//    public void addAdditional(AdditionalEntity additionalEntity) {
-//        additionalEntity.setDataToSave(this);
-//        additionalEntities.add(additionalEntity);
-//    }
 }

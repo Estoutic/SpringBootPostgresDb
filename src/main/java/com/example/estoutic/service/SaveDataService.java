@@ -1,35 +1,47 @@
 package com.example.estoutic.service;
 
-import com.example.estoutic.controller.models.SaveRequest;
-import com.example.estoutic.database.models.SaveData;
-import com.example.estoutic.database.repositories.SaveDataRepository;
+import com.example.estoutic.controller.models.BuildProjectSaveRequest;
+import com.example.estoutic.controller.models.UsernameSaveRequest;
+import com.example.estoutic.database.models.BuildProjectSaveData;
+import com.example.estoutic.database.models.UserNameSaveData;
+import com.example.estoutic.database.repositories.BuildProjectSaveDataRepository;
+import com.example.estoutic.database.repositories.UserNameSaveDataRepository;
 import org.springframework.stereotype.Service;
 import org.modelmapper.ModelMapper;
+
+import java.util.Optional;
 
 @Service
 public class SaveDataService {
 
-    private final SaveDataRepository dataToSaveRepository;
+    private final UserNameSaveDataRepository userDataToSaveRepository;
+    private final BuildProjectSaveDataRepository buildProjectSaveDataRepository;
     private final ModelMapper mapper;
 
-    public SaveDataService(SaveDataRepository dataToSaveRepository, ModelMapper mapper) {
-        this.dataToSaveRepository = dataToSaveRepository;
+    public SaveDataService(UserNameSaveDataRepository userDataToSaveRepository, ModelMapper mapper, BuildProjectSaveDataRepository buildProjectSaveDataRepository) {
+        this.userDataToSaveRepository = userDataToSaveRepository;
+        this.buildProjectSaveDataRepository = buildProjectSaveDataRepository;
         this.mapper = mapper;
     }
 
-    public String saveData(SaveRequest saveRequest) {
+    public String saveUserNameData(UsernameSaveRequest usernameSaveRequest) {
 
-        SaveData dataToSave = mapper.map(saveRequest, SaveData.class);
+        UserNameSaveData dataToSave = mapper.map(usernameSaveRequest, UserNameSaveData.class);
 
-//        for (AdditionalRequest additional: saveRequest.getAdditionals()){
-//            AdditionalEntity additionalEntity = mapper.map(additional, AdditionalEntity.class);
-//            dataToSave.addAdditional(additionalEntity);
-//        }
-        System.out.println(dataToSave.getName());
-
-        dataToSaveRepository.save(dataToSave);
+        userDataToSaveRepository.save(dataToSave);
         return dataToSave.getId();
     }
 
-//
+    public UserNameSaveData getUserById(String id) throws Exception {
+        Optional<UserNameSaveData> fromDb = userDataToSaveRepository.findOptionalById(id);
+        return fromDb.orElseThrow(Exception::new);
+    }
+
+    public String saveBuildProjectData(BuildProjectSaveRequest buildProjectSaveRequest) {
+
+        BuildProjectSaveData buildProjectData = mapper.map(buildProjectSaveRequest, BuildProjectSaveData.class);
+
+        buildProjectSaveDataRepository.save(buildProjectData);
+        return buildProjectData.getId();
+    }
 }

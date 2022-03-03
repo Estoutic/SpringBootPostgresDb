@@ -1,5 +1,7 @@
 package com.example.estoutic.controller;
-import com.example.estoutic.controller.models.SaveRequest;
+import com.example.estoutic.controller.models.BuildProjectSaveRequest;
+import com.example.estoutic.controller.models.UsernameSaveRequest;
+import com.example.estoutic.database.models.UserNameSaveData;
 import com.example.estoutic.service.SaveDataService;
 import org.springframework.web.bind.annotation.*;
 
@@ -7,20 +9,27 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/public")
 public class MessageServiceApiController {
     
-    private SaveRequest saveRequest;
+    private UsernameSaveRequest usernameSaveRequest;
+    private BuildProjectSaveRequest buildProjectSaveRequest;
     private final SaveDataService saveDataService;
     
     public MessageServiceApiController( SaveDataService saveDataService){
         this.saveDataService = saveDataService;
     }
-    @PostMapping("/save")
-    public String save(@RequestBody() SaveRequest saveRequest){
-        this.saveRequest = saveRequest;
-        return "saved - " + saveDataService.saveData(saveRequest);
+    @PostMapping("/name")
+    public String saveUserName(@RequestBody() UsernameSaveRequest usernameSaveRequest){
+        this.usernameSaveRequest = usernameSaveRequest;
+        return "saved - " + saveDataService.saveUserNameData(usernameSaveRequest);
     }
 
-    @GetMapping("/save")
-    public SaveRequest getSave(){
-        return saveRequest;
+    @GetMapping("/save/{id}")
+    public UserNameSaveData geUserName(@PathVariable("id") String id) throws Exception {
+        return saveDataService.getUserById(id);
     }
+    @PostMapping("/project")
+    public String saveBuildProject(@RequestBody() BuildProjectSaveRequest buildProjectSaveRequest){
+        this.buildProjectSaveRequest = buildProjectSaveRequest;
+        return "saved - " + saveDataService.saveBuildProjectData(buildProjectSaveRequest);
+    }
+
 }

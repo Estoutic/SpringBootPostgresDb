@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
-public class SaveRequest {
+public class BuildProjectSaveRequest {
 
     @JsonProperty("name")
     private String name;
