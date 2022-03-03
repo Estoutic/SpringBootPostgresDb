@@ -1,5 +1,6 @@
 package com.example.estoutic.controller;
 import com.example.estoutic.controller.models.BuildProjectSaveRequest;
+import com.example.estoutic.controller.models.TelephoneNumberSaveRequest;
 import com.example.estoutic.controller.models.UsernameSaveRequest;
 import com.example.estoutic.database.models.UserNameSaveData;
 import com.example.estoutic.service.SaveDataService;
@@ -11,6 +12,7 @@ public class MessageServiceApiController {
     
     private UsernameSaveRequest usernameSaveRequest;
     private BuildProjectSaveRequest buildProjectSaveRequest;
+    private TelephoneNumberSaveRequest telephoneNumberSaveRequest;
     private final SaveDataService saveDataService;
     
     public MessageServiceApiController( SaveDataService saveDataService){
@@ -30,6 +32,11 @@ public class MessageServiceApiController {
     public String saveBuildProject(@RequestBody() BuildProjectSaveRequest buildProjectSaveRequest){
         this.buildProjectSaveRequest = buildProjectSaveRequest;
         return "saved - " + saveDataService.saveBuildProjectData(buildProjectSaveRequest);
+    }
+    @PostMapping("/phone")
+    public String savePhoneNumber(@RequestBody() TelephoneNumberSaveRequest telephoneNumberSaveRequest){
+        this.telephoneNumberSaveRequest = telephoneNumberSaveRequest;
+        return "saved - " + saveDataService.savePhoneNumberData(telephoneNumberSaveRequest);
     }
 
 }
