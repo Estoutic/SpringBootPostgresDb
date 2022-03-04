@@ -12,27 +12,29 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.math.BigInteger;
 import java.time.LocalDateTime;
 
 @Data
 @Entity
 @NoArgsConstructor
-public class PhoneNumberSaveData {
-    @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
-    @Column(length = 32, updatable = false, nullable = false)
-    @EqualsAndHashCode.Exclude
-    private String id;
+public class BuildAddressSaveData {
 
-    @CreationTimestamp
-    @Column(columnDefinition = "TIMESTAMP")
-    private LocalDateTime addDate;
 
-    @Generated(GenerationTime.INSERT)
-    private Integer serial;
+        @Id
+        @GeneratedValue(generator = "system-uuid")
+        @GenericGenerator(name = "system-uuid", strategy = "uuid")
+        @Column(length = 32, updatable = false, nullable = false)
+        @EqualsAndHashCode.Exclude
+        private String id;
 
-    private BigInteger phone;
+        @CreationTimestamp
+        @Column(columnDefinition = "TIMESTAMP")
+        private LocalDateTime addDate;
+
+        @Generated(GenerationTime.INSERT)
+        private Integer serial;
+
+        private String address;
+
 
 }

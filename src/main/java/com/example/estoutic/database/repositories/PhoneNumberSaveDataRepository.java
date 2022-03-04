@@ -9,5 +9,5 @@ import java.util.Optional;
 
 @Repository
 public interface PhoneNumberSaveDataRepository extends JpaRepository<PhoneNumberSaveData,String> {
-    Optional<UserNameSaveData> findOptionalById(String id);
+    Optional<PhoneNumberSaveData> findOptionalById(String id);
 }
