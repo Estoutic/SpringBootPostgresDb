@@ -33,6 +33,6 @@ public class PhoneNumberSaveData {
     @Generated(GenerationTime.INSERT)
     private Integer serial;
 
-    private BigInteger phone;
+    private String phone;
 
 }

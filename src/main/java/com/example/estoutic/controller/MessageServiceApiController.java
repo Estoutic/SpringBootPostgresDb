@@ -1,7 +1,7 @@
 package com.example.estoutic.controller;
 import com.example.estoutic.controller.models.BuildAddressSaveRequest;
 import com.example.estoutic.controller.models.BuildProjectSaveRequest;
-import com.example.estoutic.controller.models.TelephoneNumberSaveRequest;
+import com.example.estoutic.controller.models.PhoneNumberSaveRequest;
 import com.example.estoutic.controller.models.UsernameSaveRequest;
 import com.example.estoutic.database.models.BuildAddressSaveData;
 import com.example.estoutic.database.models.BuildProjectSaveData;
@@ -16,7 +16,7 @@ public class MessageServiceApiController {
     
     private UsernameSaveRequest usernameSaveRequest;
     private BuildProjectSaveRequest buildProjectSaveRequest;
-    private TelephoneNumberSaveRequest telephoneNumberSaveRequest;
+    private PhoneNumberSaveRequest phoneNumberSaveRequest;
     private BuildAddressSaveRequest buildAddressSaveRequest;
     private final SaveDataService saveDataService;
     
@@ -39,9 +39,9 @@ public class MessageServiceApiController {
         return "saved build project - " + saveDataService.saveBuildProjectData(buildProjectSaveRequest);
     }
     @PostMapping("/phone")
-    public String savePhoneNumber(@RequestBody() TelephoneNumberSaveRequest telephoneNumberSaveRequest){
-        this.telephoneNumberSaveRequest = telephoneNumberSaveRequest;
-        return "saved phone number  - " + saveDataService.savePhoneNumberData(telephoneNumberSaveRequest);
+    public String savePhoneNumber(@RequestBody() PhoneNumberSaveRequest phoneNumberSaveRequest){
+        this.phoneNumberSaveRequest = phoneNumberSaveRequest;
+        return "saved phone number  - " + saveDataService.savePhoneNumberData(phoneNumberSaveRequest);
     }
     @GetMapping("/project/{id}")
     public BuildProjectSaveData getBuildProject(@PathVariable("id") String id) throws Exception {

@@ -2,7 +2,7 @@ package com.example.estoutic.service;
 
 import com.example.estoutic.controller.models.BuildAddressSaveRequest;
 import com.example.estoutic.controller.models.BuildProjectSaveRequest;
-import com.example.estoutic.controller.models.TelephoneNumberSaveRequest;
+import com.example.estoutic.controller.models.PhoneNumberSaveRequest;
 import com.example.estoutic.controller.models.UsernameSaveRequest;
 import com.example.estoutic.database.models.BuildAddressSaveData;
 import com.example.estoutic.database.models.BuildProjectSaveData;
@@ -55,10 +55,10 @@ public class SaveDataService {
         return buildProjectData.getId();
     }
 
-    public String savePhoneNumberData(TelephoneNumberSaveRequest telephoneNumberSaveRequest) {
+    public String savePhoneNumberData(PhoneNumberSaveRequest phoneNumberSaveRequest) {
 
-        PhoneNumberSaveData phoneNumberSaveData = mapper.map(telephoneNumberSaveRequest, PhoneNumberSaveData.class);
-        System.out.println(telephoneNumberSaveRequest.getTelephone());
+        PhoneNumberSaveData phoneNumberSaveData = mapper.map(phoneNumberSaveRequest, PhoneNumberSaveData.class);
+        System.out.println(phoneNumberSaveRequest.getPhone());
 
         phoneNumberSaveDataRepository.save(phoneNumberSaveData);
         return phoneNumberSaveData.getId();
