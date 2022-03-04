@@ -50,7 +50,9 @@ public class SaveDataService {
     public String saveBuildProjectData(BuildProjectSaveRequest buildProjectSaveRequest) {
 
         BuildProjectSaveData buildProjectData = mapper.map(buildProjectSaveRequest, BuildProjectSaveData.class);
+        BuildAddressSaveData buildAddressSaveData = mapper.map(buildProjectData, BuildAddressSaveData.class);
 
+        buildProjectData.addAddress(buildAddressSaveData);
         buildProjectSaveDataRepository.save(buildProjectData);
         return buildProjectData.getId();
     }

@@ -8,10 +8,7 @@ import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Data
@@ -35,4 +32,13 @@ public class BuildProjectSaveData {
 
     private String projectName;
 
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade =  CascadeType.ALL,
+            mappedBy = "project")
+    private BuildAddressSaveData buildAddressSaveData;
+
+    public void addAddress(BuildAddressSaveData buildAddressSave){
+        buildAddressSave.setProject(this);
+        this.buildAddressSaveData = buildAddressSave;
+    }
 }

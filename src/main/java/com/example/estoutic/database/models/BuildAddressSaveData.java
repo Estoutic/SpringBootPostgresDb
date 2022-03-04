@@ -1,5 +1,6 @@
 package com.example.estoutic.database.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -8,10 +9,7 @@ import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Data
@@ -36,5 +34,9 @@ public class BuildAddressSaveData {
 
         private String address;
 
+        @JsonIgnore
+        @OneToOne(fetch = FetchType.LAZY)
+        @JoinColumn(name = "dataToSave_id")
+        private BuildProjectSaveData project ;
 
 }

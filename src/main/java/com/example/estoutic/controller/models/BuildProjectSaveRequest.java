@@ -9,4 +9,7 @@ public class BuildProjectSaveRequest {
     @JsonProperty("name")
     private String name;
 
+    @JsonProperty("address")
+    public String address;
+
 }
