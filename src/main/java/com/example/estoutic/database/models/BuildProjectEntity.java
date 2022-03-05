@@ -10,6 +10,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -39,7 +40,7 @@ public class BuildProjectEntity {
     private BuildAddressEntity buildAddressEntity;
 
     @OneToMany(mappedBy = "project")
-    Set<RegistrationEntity> registrationEntities;
+    Set<RegistrationEntity> registrationEntities = new HashSet<>();
 
     public void addAddress(BuildAddressEntity buildAddressSave){
         buildAddressSave.setProject(this);

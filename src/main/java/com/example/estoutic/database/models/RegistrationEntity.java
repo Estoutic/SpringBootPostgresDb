@@ -29,4 +29,10 @@ public class RegistrationEntity {
     @JoinColumn(name = "project_id")
     BuildProjectEntity project;
 
+    public void addBuildProject(UserNameEntity userName, BuildProjectEntity buildProjectEntity){
+        user = userName;
+        project = buildProjectEntity;
+        userName.registrations.add(this);
+        buildProjectEntity.registrationEntities.add(this);
+    }
 }

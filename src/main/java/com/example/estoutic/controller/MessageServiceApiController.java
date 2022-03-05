@@ -15,6 +15,7 @@ public class MessageServiceApiController {
     
     private UsernameSaveRequest usernameSaveRequest;
     private BuildProjectSaveRequest buildProjectSaveRequest;
+    private RegistrationRequest registrationRequest;
 //    private PhoneNumberSaveRequest phoneNumberSaveRequest;
     private final SaveDataService saveDataService;
     
@@ -56,7 +57,8 @@ public class MessageServiceApiController {
 
     @PostMapping("/reg")
     public String registration(@RequestBody() RegistrationRequest registrationRequest){
-        this.buildProjectSaveRequest = buildProjectSaveRequest;
-        return "saved build project - " + saveDataService.saveBuildProjectData(buildProjectSaveRequest);
+        this.registrationRequest = registrationRequest;
+        saveDataService.registrationUserProject(registrationRequest);
+        return "saved build project ";
     }
 }

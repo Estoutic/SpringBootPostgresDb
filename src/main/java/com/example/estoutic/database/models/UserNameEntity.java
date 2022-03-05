@@ -11,6 +11,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -43,7 +44,7 @@ public class UserNameEntity {
     private List<PhoneNumberEntity> phoneNumberEntityList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
-    Set<RegistrationEntity> registrations;
+    Set<RegistrationEntity> registrations = new HashSet<>();
 
     public void addPhone(PhoneNumberEntity phoneNumberEntity) {
         phoneNumberEntity.setUserNameEntity(this);
