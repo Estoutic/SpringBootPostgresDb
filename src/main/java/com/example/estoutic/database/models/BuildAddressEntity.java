@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @NoArgsConstructor
-public class BuildAddressSaveData {
+public class BuildAddressEntity {
 
 
         @Id
@@ -36,7 +36,7 @@ public class BuildAddressSaveData {
 
         @JsonIgnore
         @OneToOne(fetch = FetchType.LAZY)
-        @JoinColumn(name = "dataToSave_id")
-        private BuildProjectSaveData project ;
+        @JoinColumn(name = "projectName")
+        private BuildProjectEntity project ;
 
 }

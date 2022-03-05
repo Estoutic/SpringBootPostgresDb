@@ -1,5 +1,6 @@
 package com.example.estoutic.database.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -14,8 +15,7 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @NoArgsConstructor
-public class UserNameSaveData {
-
+public class PhoneNumberEntity {
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
@@ -30,6 +30,12 @@ public class UserNameSaveData {
     @Generated(GenerationTime.INSERT)
     private Integer serial;
 
-    private String name;
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "userNameEntity", referencedColumnName = "id")
+    private UserNameEntity userNameEntity;
+
+    private String phone;
+
 
 }

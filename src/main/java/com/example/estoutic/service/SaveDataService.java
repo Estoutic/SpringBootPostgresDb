@@ -1,13 +1,12 @@
 package com.example.estoutic.service;
 
-import com.example.estoutic.controller.models.BuildAddressSaveRequest;
 import com.example.estoutic.controller.models.BuildProjectSaveRequest;
 import com.example.estoutic.controller.models.PhoneNumberSaveRequest;
 import com.example.estoutic.controller.models.UsernameSaveRequest;
-import com.example.estoutic.database.models.BuildAddressSaveData;
-import com.example.estoutic.database.models.BuildProjectSaveData;
-import com.example.estoutic.database.models.PhoneNumberSaveData;
-import com.example.estoutic.database.models.UserNameSaveData;
+import com.example.estoutic.database.models.BuildAddressEntity;
+import com.example.estoutic.database.models.BuildProjectEntity;
+import com.example.estoutic.database.models.PhoneNumberEntity;
+import com.example.estoutic.database.models.UserNameEntity;
 import com.example.estoutic.database.repositories.BuildAddressSaveDataRepository;
 import com.example.estoutic.database.repositories.BuildProjectSaveDataRepository;
 import com.example.estoutic.database.repositories.PhoneNumberSaveDataRepository;
@@ -36,54 +35,55 @@ public class SaveDataService {
 
     public String saveUserNameData(UsernameSaveRequest usernameSaveRequest) {
 
-        UserNameSaveData dataToSave = mapper.map(usernameSaveRequest, UserNameSaveData.class);
+        UserNameEntity userNameData = mapper.map(usernameSaveRequest, UserNameEntity.class);
 
-        userDataToSaveRepository.save(dataToSave);
-        return dataToSave.getId();
+        for (PhoneNumberSaveRequest phoneNumberEntity : usernameSaveRequest.getPhones()){
+            PhoneNumberEntity phoneNumberData = mapper.map(phoneNumberEntity, PhoneNumberEntity.class);
+            userNameData.addPhone(phoneNumberData);
+        }
+        userDataToSaveRepository.save(userNameData);
+        return userNameData.getId();
     }
 
-    public UserNameSaveData getUserById(String id) throws Exception {
-        Optional<UserNameSaveData> fromDb = userDataToSaveRepository.findOptionalById(id);
+    public UserNameEntity getUserById(String id) throws Exception {
+        Optional<UserNameEntity> fromDb = userDataToSaveRepository.findOptionalById(id);
         return fromDb.orElseThrow(Exception::new);
     }
 
     public String saveBuildProjectData(BuildProjectSaveRequest buildProjectSaveRequest) {
 
-        BuildProjectSaveData buildProjectData = mapper.map(buildProjectSaveRequest, BuildProjectSaveData.class);
-        BuildAddressSaveData buildAddressSaveData = mapper.map(buildProjectData, BuildAddressSaveData.class);
-
-        buildProjectData.addAddress(buildAddressSaveData);
+        BuildProjectEntity buildProjectData = mapper.map(buildProjectSaveRequest, BuildProjectEntity.class);
+        BuildAddressEntity buildAddressEntity = mapper.map(buildProjectSaveRequest.getAddress(), BuildAddressEntity.class);
+        buildAddressEntity.setAddress(buildProjectSaveRequest.getAddress());
+        buildProjectData.addAddress(buildAddressEntity);
         buildProjectSaveDataRepository.save(buildProjectData);
         return buildProjectData.getId();
     }
 
-    public String savePhoneNumberData(PhoneNumberSaveRequest phoneNumberSaveRequest) {
-
-        PhoneNumberSaveData phoneNumberSaveData = mapper.map(phoneNumberSaveRequest, PhoneNumberSaveData.class);
-        System.out.println(phoneNumberSaveRequest.getPhone());
-
-        phoneNumberSaveDataRepository.save(phoneNumberSaveData);
-        return phoneNumberSaveData.getId();
-    }
-    public BuildProjectSaveData getBuildProjectById(String id) throws Exception {
-        Optional<BuildProjectSaveData> buildProjectFromDb = buildProjectSaveDataRepository.findOptionalById(id);
+//    public String savePhoneNumberData(PhoneNumberSaveRequest phoneNumberSaveRequest) {
+//
+//        PhoneNumberSaveData phoneNumberSaveData = mapper.map(phoneNumberSaveRequest, PhoneNumberSaveData.class);
+//        System.out.println(phoneNumberSaveRequest.getPhone());
+//
+//        for (PhoneNumberSaveData phoneNumberSaveData1: .getAdditionals()){
+//            AdditionalEntity additionalEntity = mapper.map(additional, AdditionalEntity.class);
+//            dataToSave.addAdditional(additionalEntity);
+//        }
+//
+//        dataToSaveRepository.save(dataToSave);
+//        phoneNumberSaveDataRepository.save(phoneNumberSaveData);
+//        return phoneNumberSaveData.getId();
+//    }
+    public BuildProjectEntity getBuildProjectById(String id) throws Exception {
+        Optional<BuildProjectEntity> buildProjectFromDb = buildProjectSaveDataRepository.findOptionalById(id);
         return buildProjectFromDb.orElseThrow(Exception::new);
     }
-
-    public String saveBuildAddressData(BuildAddressSaveRequest buildAddressSaveRequest) {
-
-        BuildAddressSaveData buildAddressSaveData = mapper.map(buildAddressSaveRequest, BuildAddressSaveData.class);
-        System.out.println(buildAddressSaveRequest.getAddress());
-
-        buildAddressSaveDataRepository.save(buildAddressSaveData);
-        return buildAddressSaveData.getId();
-    }
-    public BuildAddressSaveData getBuildAddressById(String id) throws Exception {
-        Optional<BuildAddressSaveData> buildAddressSveData = buildAddressSaveDataRepository.findOptionalById(id);
+    public BuildAddressEntity getBuildAddressById(String id) throws Exception {
+        Optional<BuildAddressEntity> buildAddressSveData = buildAddressSaveDataRepository.findOptionalById(id);
         return buildAddressSveData.orElseThrow(Exception::new);
     }
-    public PhoneNumberSaveData getPhoneById(String id) throws Exception{
-        Optional<PhoneNumberSaveData> phoneNumberSaveData = phoneNumberSaveDataRepository.findOptionalById(id);
+    public PhoneNumberEntity getPhoneById(String id) throws Exception{
+        Optional<PhoneNumberEntity> phoneNumberSaveData = phoneNumberSaveDataRepository.findOptionalById(id);
         return phoneNumberSaveData.orElseThrow(Exception::new);
     }
 }

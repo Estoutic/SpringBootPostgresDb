@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 public class BuildProjectSaveRequest {
 
-    @JsonProperty("name")
+    @JsonProperty("project")
     private String name;
 
     @JsonProperty("address")

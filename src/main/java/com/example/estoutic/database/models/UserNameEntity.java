@@ -10,11 +10,13 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity
 @NoArgsConstructor
-public class BuildProjectSaveData {
+public class UserNameEntity {
 
     @Id
     @GeneratedValue(generator = "system-uuid")
@@ -30,15 +32,17 @@ public class BuildProjectSaveData {
     @Generated(GenerationTime.INSERT)
     private Integer serial;
 
-    private String projectName;
+    private String name;
 
-    @OneToOne(fetch = FetchType.LAZY,
-            cascade =  CascadeType.ALL,
-            mappedBy = "project")
-    private BuildAddressSaveData buildAddressSaveData;
+    @OneToMany(
+            targetEntity = PhoneNumberEntity.class,
+            fetch = FetchType.EAGER,
+            mappedBy = "userNameEntity",
+            cascade = CascadeType.ALL)
+    private List<PhoneNumberEntity> phoneNumberEntityList = new ArrayList<>();
 
-    public void addAddress(BuildAddressSaveData buildAddressSave){
-        buildAddressSave.setProject(this);
-        this.buildAddressSaveData = buildAddressSave;
+    public void addPhone(PhoneNumberEntity phoneNumberEntity) {
+        phoneNumberEntity.setUserNameEntity(this);
+        phoneNumberEntityList.add(phoneNumberEntity);
     }
 }

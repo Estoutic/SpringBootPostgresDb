@@ -8,17 +8,14 @@ import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import java.math.BigInteger;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Data
 @Entity
 @NoArgsConstructor
-public class PhoneNumberSaveData {
+public class BuildProjectEntity {
+
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
@@ -33,6 +30,15 @@ public class PhoneNumberSaveData {
     @Generated(GenerationTime.INSERT)
     private Integer serial;
 
-    private String phone;
+    private String projectName;
 
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade =  CascadeType.ALL,
+            mappedBy = "project")
+    private BuildAddressEntity buildAddressEntity;
+
+    public void addAddress(BuildAddressEntity buildAddressSave){
+        buildAddressSave.setProject(this);
+        this.buildAddressEntity = buildAddressSave;
+    }
 }

@@ -1,12 +1,10 @@
 package com.example.estoutic.controller;
-import com.example.estoutic.controller.models.BuildAddressSaveRequest;
 import com.example.estoutic.controller.models.BuildProjectSaveRequest;
-import com.example.estoutic.controller.models.PhoneNumberSaveRequest;
 import com.example.estoutic.controller.models.UsernameSaveRequest;
-import com.example.estoutic.database.models.BuildAddressSaveData;
-import com.example.estoutic.database.models.BuildProjectSaveData;
-import com.example.estoutic.database.models.PhoneNumberSaveData;
-import com.example.estoutic.database.models.UserNameSaveData;
+import com.example.estoutic.database.models.BuildAddressEntity;
+import com.example.estoutic.database.models.BuildProjectEntity;
+import com.example.estoutic.database.models.PhoneNumberEntity;
+import com.example.estoutic.database.models.UserNameEntity;
 import com.example.estoutic.service.SaveDataService;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,8 +14,7 @@ public class MessageServiceApiController {
     
     private UsernameSaveRequest usernameSaveRequest;
     private BuildProjectSaveRequest buildProjectSaveRequest;
-    private PhoneNumberSaveRequest phoneNumberSaveRequest;
-    private BuildAddressSaveRequest buildAddressSaveRequest;
+//    private PhoneNumberSaveRequest phoneNumberSaveRequest;
     private final SaveDataService saveDataService;
     
     public MessageServiceApiController( SaveDataService saveDataService){
@@ -30,7 +27,7 @@ public class MessageServiceApiController {
     }
 
     @GetMapping("/name/{id}")
-    public UserNameSaveData geUserName(@PathVariable("id") String id) throws Exception {
+    public UserNameEntity geUserName(@PathVariable("id") String id) throws Exception {
         return saveDataService.getUserById(id);
     }
     @PostMapping("/project")
@@ -38,26 +35,21 @@ public class MessageServiceApiController {
         this.buildProjectSaveRequest = buildProjectSaveRequest;
         return "saved build project - " + saveDataService.saveBuildProjectData(buildProjectSaveRequest);
     }
-    @PostMapping("/phone")
-    public String savePhoneNumber(@RequestBody() PhoneNumberSaveRequest phoneNumberSaveRequest){
-        this.phoneNumberSaveRequest = phoneNumberSaveRequest;
-        return "saved phone number  - " + saveDataService.savePhoneNumberData(phoneNumberSaveRequest);
-    }
+//    @PostMapping("/phone")
+//    public String savePhoneNumber(@RequestBody() PhoneNumberSaveRequest phoneNumberSaveRequest){
+//        this.phoneNumberSaveRequest = phoneNumberSaveRequest;
+//        return "saved phone number  - " + saveDataService.savePhoneNumberData(phoneNumberSaveRequest);
+//    }
     @GetMapping("/project/{id}")
-    public BuildProjectSaveData getBuildProject(@PathVariable("id") String id) throws Exception {
+    public BuildProjectEntity getBuildProject(@PathVariable("id") String id) throws Exception {
         return saveDataService.getBuildProjectById(id);
     }
     @GetMapping("/phone/{id}")
-    public PhoneNumberSaveData getPhone(@PathVariable("id") String id) throws Exception {
+    public PhoneNumberEntity getPhone(@PathVariable("id") String id) throws Exception {
         return saveDataService.getPhoneById(id);
     }
-    @PostMapping("/address")
-    public String saveBuildAddress(@RequestBody() BuildAddressSaveRequest buildAddressSaveRequest){
-        this.buildAddressSaveRequest = buildAddressSaveRequest;
-        return "saved build address" + saveDataService.saveBuildAddressData(buildAddressSaveRequest);
-    }
     @GetMapping("/address/{id}")
-    public BuildAddressSaveData getBuildAddress(@PathVariable("id") String id) throws Exception {
+    public BuildAddressEntity getBuildAddress(@PathVariable("id") String id) throws Exception {
         return saveDataService.getBuildAddressById(id);
     }
 }
