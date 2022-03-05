@@ -12,6 +12,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -41,8 +42,12 @@ public class UserNameEntity {
             cascade = CascadeType.ALL)
     private List<PhoneNumberEntity> phoneNumberEntityList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user")
+    Set<RegistrationEntity> registrations;
+
     public void addPhone(PhoneNumberEntity phoneNumberEntity) {
         phoneNumberEntity.setUserNameEntity(this);
         phoneNumberEntityList.add(phoneNumberEntity);
     }
+
 }

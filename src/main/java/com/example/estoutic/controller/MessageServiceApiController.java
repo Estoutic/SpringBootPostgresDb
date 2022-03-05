@@ -1,5 +1,6 @@
 package com.example.estoutic.controller;
 import com.example.estoutic.controller.models.BuildProjectSaveRequest;
+import com.example.estoutic.controller.models.RegistrationRequest;
 import com.example.estoutic.controller.models.UsernameSaveRequest;
 import com.example.estoutic.database.models.BuildAddressEntity;
 import com.example.estoutic.database.models.BuildProjectEntity;
@@ -51,5 +52,11 @@ public class MessageServiceApiController {
     @GetMapping("/address/{id}")
     public BuildAddressEntity getBuildAddress(@PathVariable("id") String id) throws Exception {
         return saveDataService.getBuildAddressById(id);
+    }
+
+    @PostMapping("/reg")
+    public String registration(@RequestBody() RegistrationRequest registrationRequest){
+        this.buildProjectSaveRequest = buildProjectSaveRequest;
+        return "saved build project - " + saveDataService.saveBuildProjectData(buildProjectSaveRequest);
     }
 }

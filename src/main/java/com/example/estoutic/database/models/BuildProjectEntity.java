@@ -10,6 +10,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Data
 @Entity
@@ -36,6 +37,9 @@ public class BuildProjectEntity {
             cascade =  CascadeType.ALL,
             mappedBy = "project")
     private BuildAddressEntity buildAddressEntity;
+
+    @OneToMany(mappedBy = "project")
+    Set<RegistrationEntity> registrationEntities;
 
     public void addAddress(BuildAddressEntity buildAddressSave){
         buildAddressSave.setProject(this);
