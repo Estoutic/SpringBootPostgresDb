@@ -1,12 +1,9 @@
 package com.example.estoutic.service;
 
-import com.example.estoutic.controllers.models.BuildProjectSaveRequest;
 import com.example.estoutic.controllers.models.ProjectUserRequest;
 import com.example.estoutic.controllers.models.RegistrationRequest;
-import com.example.estoutic.database.models.BuildAddressEntity;
-import com.example.estoutic.database.models.BuildProjectEntity;
-import com.example.estoutic.database.models.RegistrationEntity;
-import com.example.estoutic.database.models.UserNameEntity;
+import com.example.estoutic.controllers.models.UserDTO;
+import com.example.estoutic.database.models.*;
 import com.example.estoutic.database.repositories.BuildProjectSaveDataRepository;
 import com.example.estoutic.database.repositories.RegistrationRepository;
 import com.example.estoutic.database.repositories.UserNameSaveDataRepository;
@@ -46,11 +43,16 @@ public class BuildProjectService {
             project.addAddress(buildAddressEntity);
             project.setProjectName(projectUserRequest.getProject());
 
-            for(String name: projectUserRequest.getUsers()){
+            for(UserDTO name: projectUserRequest.getUsers()){
 
                 RegistrationEntity registration = new RegistrationEntity();
-                UserNameEntity user = mapper.map(name, UserNameEntity.class);
-                user.setName(name);
+                UserNameEntity user = mapper.map(name.getUser(), UserNameEntity.class);
+                user.setName(name.getUser());
+                for (String phoneNumberEntity : name.getPhones()){
+                    PhoneNumberEntity phoneNumberData = mapper.map(phoneNumberEntity, PhoneNumberEntity.class);
+                    phoneNumberData.setPhone(phoneNumberEntity);
+                    user.addPhone(phoneNumberData);
+                }
                 registration.addBuildProject(user,project);
                 userDataToSaveRepository.save(user);
                 buildProjectSaveDataRepository.save(project);

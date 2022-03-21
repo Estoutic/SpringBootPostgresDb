@@ -13,24 +13,10 @@ public class SaveDataService {
 
     private final UserNameSaveDataRepository userDataToSaveRepository;
     private final PhoneNumberSaveDataRepository phoneNumberSaveDataRepository;
-    private final ModelMapper mapper;
 
     public SaveDataService(UserNameSaveDataRepository userDataToSaveRepository, ModelMapper mapper, BuildProjectSaveDataRepository buildProjectSaveDataRepository, PhoneNumberSaveDataRepository phoneNumberSaveData, BuildAddressSaveDataRepository buildAddressSaveDataRepository, RegistrationRepository registrationRepository) {
         this.userDataToSaveRepository = userDataToSaveRepository;
         this.phoneNumberSaveDataRepository = phoneNumberSaveData;
-        this.mapper = mapper;
-    }
-
-    public String saveUserNameData(UsernameSaveRequest usernameSaveRequest) {
-
-        UserNameEntity userNameData = mapper.map(usernameSaveRequest, UserNameEntity.class);
-
-        for (PhoneNumberSaveRequest phoneNumberEntity : usernameSaveRequest.getPhones()){
-            PhoneNumberEntity phoneNumberData = mapper.map(phoneNumberEntity, PhoneNumberEntity.class);
-            userNameData.addPhone(phoneNumberData);
-        }
-        userDataToSaveRepository.save(userNameData);
-        return userNameData.getId();
     }
 
     public UserNameEntity getUserById(String id) throws Exception {

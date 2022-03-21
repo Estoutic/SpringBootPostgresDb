@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class ProjectUserRequest {
 
     @JsonProperty("users")
-    private ArrayList<String> users;
+    private ArrayList<UserDTO> users;
 
     @JsonProperty("project")
     private String project;

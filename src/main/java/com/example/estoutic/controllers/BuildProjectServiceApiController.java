@@ -1,6 +1,5 @@
 package com.example.estoutic.controllers;
 
-import com.example.estoutic.controllers.models.BuildProjectSaveRequest;
 import com.example.estoutic.controllers.models.RegistrationRequest;
 import com.example.estoutic.database.models.BuildProjectEntity;
 import com.example.estoutic.service.BuildProjectService;
@@ -10,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/build")
 public class BuildProjectServiceApiController {
 
-    private BuildProjectSaveRequest buildProjectSaveRequest;
     private final BuildProjectService buildProjectService;
     private RegistrationRequest registrationRequest;
 
